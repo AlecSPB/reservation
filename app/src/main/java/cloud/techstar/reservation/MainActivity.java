@@ -1,4 +1,4 @@
-package agency.techstar.food;
+package cloud.techstar.reservation;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package agency.techstar.food;
+package cloud.techstar.reservation;
 
 import org.junit.Test;
 
