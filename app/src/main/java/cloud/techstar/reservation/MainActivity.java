@@ -1,5 +1,6 @@
 package cloud.techstar.reservation;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,8 +33,18 @@ public class MainActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                f
+                
+                Intent signUp = new Intent(MainActivity.this, SignUpActivity.class);
+                startActivity(signUp);
             
+            }
+        });
+        
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent signIn = new Intent(MainActivity.this, SignInActivity.class);
+                startActivity(signIn);
             }
         });
     }

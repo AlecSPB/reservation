@@ -56,7 +56,7 @@ public class SignInActivity extends AppCompatActivity {
                                 mDialog.dismiss();
                             } else {
                                 mDialog.dismiss();
-                                Toast.makeText(SignInActivity.this, "Алдаа гарлаа", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignInActivity.this, "Нууц үг буруу байна.", Toast.LENGTH_SHORT).show();
                             }
                         }
                         else {
