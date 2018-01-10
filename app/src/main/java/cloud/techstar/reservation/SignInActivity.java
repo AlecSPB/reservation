@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,11 +31,11 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         
-        edtPassword = (MaterialEditText)findViewById(R.id.edtPassword);
-        edtPhone = (MaterialEditText)findViewById(R.id.edtPassword);
+        edtPassword = (MaterialEditText)findViewById(R.id.edtPass);
+        edtPhone = (MaterialEditText)findViewById(R.id.edtPhone);
         btnSignIn = (Button)findViewById(R.id.btnSignIn);
     
-        FirebaseDatabase database = FirebaseDatabase.getInstance(); //Firebase өгөгдлийн сантай холбогдох
+        final FirebaseDatabase database = FirebaseDatabase.getInstance(); //Firebase өгөгдлийн сантай холбогдох
         final DatabaseReference table_user = database.getReference("User"); // ene database.n User table ruu handaj bna
         
         btnSignIn.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +54,9 @@ public class SignInActivity extends AppCompatActivity {
                             //get user information
                            
                             User user = dataSnapshot.child(edtPhone.getText().toString()).getValue(User.class);
+    
+                            Log.d("", String.valueOf(dataSnapshot.child(edtPhone.getText().toString()).getValue(User.class)));
+                            assert user != null;
                             if (user.getPassword().equals(edtPassword.getText().toString())) {
                                 
                                 Intent homeIntent = new Intent(SignInActivity.this,HomeActivity.class);

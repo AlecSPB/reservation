@@ -30,7 +30,7 @@
             app:met_singleLineEllipsis="true"
             />
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/edtPassword"
+            android:id="@+id/edtPass"
             android:hint="Password"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
