@@ -43,7 +43,7 @@ public class SignInActivity extends AppCompatActivity {
             public void onClick(View view) {
     
                 final ProgressDialog mDialog = new ProgressDialog(SignInActivity.this);
-                mDialog.setMessage("Please waiting...");
+                mDialog.setMessage("Уншиж байна...");
                 mDialog.show();
                 table_user.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -62,6 +62,7 @@ public class SignInActivity extends AppCompatActivity {
                                 Intent homeIntent = new Intent(SignInActivity.this,HomeActivity.class);
                                 Common.currentUser = user;
                                 startActivity(homeIntent);
+                                mDialog.dismiss();
                                 finish();
                             } else {
                                 

@@ -1,11 +1,13 @@
 package cloud.techstar.reservation;
 
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -31,6 +33,8 @@ import cloud.techstar.reservation.ViewHolder.MenuViewHolder;
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     
+    static final String TAG = HomeActivity.class.getSimpleName();
+    
     FirebaseDatabase database;
     DatabaseReference category;
     TextView txtFullName;
@@ -49,7 +53,8 @@ public class HomeActivity extends AppCompatActivity
         // initial Firebase
         database = FirebaseDatabase.getInstance();
         category = database.getReference("Category");
-        
+    
+        Log.d("", category.toString());
         
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -78,16 +83,19 @@ public class HomeActivity extends AppCompatActivity
         recycler_menu = (RecyclerView)findViewById(R.id.recycler_menu);
         recycler_menu.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
+        recycler_menu.setLayoutManager(layoutManager);
         loadMenu();
         
     }
     
     private void loadMenu() {
     
-        FirebaseRecyclerAdapter<Category, MenuViewHolder> adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder>(Category.class, R.layout.menu_item,MenuViewHolder.class,category) {
+        FirebaseRecyclerAdapter<Category, MenuViewHolder> adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder>(Category.class, R.layout.menu_item,MenuViewHolder.class, category) {
             @Override
             protected void populateViewHolder(MenuViewHolder viewHolder, Category model, int position) {
-        
+                
+                Log.e(TAG, model.getName());
+                
                 viewHolder.txtMenuName.setText(model.getName());
                 Picasso.with(getBaseContext()).load(model.getImage())
                         .into(viewHolder.imageView);
