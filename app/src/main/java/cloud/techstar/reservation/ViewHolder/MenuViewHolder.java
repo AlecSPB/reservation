@@ -13,7 +13,7 @@ import cloud.techstar.reservation.R;
  */
 
 public class MenuViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    
+  
     public TextView txtMenuName;
     public ImageView imageView;
     
