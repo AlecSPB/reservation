@@ -1,5 +1,6 @@
 package cloud.techstar.reservation;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -76,7 +77,9 @@ public class FoodListActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
     
-                        Toast.makeText(FoodListActivity.this,""+local.getName(), Toast.LENGTH_SHORT).show();
+                       Intent foodDetail = new Intent(FoodListActivity.this, FoodDetailActivity.class);
+                       foodDetail.putExtra("FoodId",adapter.getRef(position).getKey());
+                       startActivity(foodDetail);
         
                     }
                 });
