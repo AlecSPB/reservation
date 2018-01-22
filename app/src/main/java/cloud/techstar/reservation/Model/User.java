@@ -10,11 +10,24 @@ public class User {
     private String Password;
     
     public User() {
+    
+    
+    
+    
     }
     
     public User(String name, String password) {
         Name = name;
         Password = password;
+     
+    }
+    
+    public String getPhone() {
+    
+    }
+    
+    public void setPhone(String phone) {
+   
     }
     
     public String getName() {
