@@ -50,34 +50,39 @@ class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
     protected Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
+    
+    @Override
+    public void onClick(View v) {
+    
+    }
 }
 
 public class CartAdapter extends RecyclerView.Adapter<CardViewHolder> {
     
-    private List<Order> ListData = new ArrayList<>();
+    private List<Order> listData = new ArrayList<>();
     private Context context;
     
     public CartAdapter(List<Order> listData, Context context) {
-        ListData = listData;
+        listData = listData;
         this.context = context;
     }
     
     @Override
     public CardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Layout Inflater inflater inflater = LayoutInflater.from(context);
-        View itemView = inflater.inflate(R.layout.cart_layout,false );
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View itemView = inflater.inflate(R.layout.cart_layout, parent, false );
         return new CardViewHolder(itemView);
     }
     
     @Override
     public void onBindViewHolder(CardViewHolder holder, int position) {
         TextDrawable drawable = TextDrawable.builder()
-                .buildRound(""+listData.get(position).getQuantity(), Color.RED);
+                .buildRound("" + listData.get(position).getQuantity(), Color.RED);
         holder.img_cart_count.setImageDrawable(drawable);
     
         Locale locale = new Locale("en","US");
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
-        int price = (integer.parseInt(listData.get(position).getPrice()))*(Integer.parseInt(listData.get(position).getQuantity()));
+        int price = (Integer.parseInt(listData.get(position).getPrice()))*(Integer.parseInt(listData.get(position).getQuantity()));
         holder.txt_price.setText(fmt.format(price));
         
         holder.txt_cart_name.setText(listData.get(position).getProductName());
