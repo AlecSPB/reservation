@@ -55,7 +55,7 @@ public class SignUpActivity extends AppCompatActivity {
                         else
                         {
                             mDialog.dismiss();
-                            User user = new User(edtName.getText().toString(),edtPassword.getText().toString());
+                            User user = new User(edtName.getText().toString(),edtPassword.getText().toString(), edtPhone.getText().toString());
                             table_user.child(edtPhone.getText().toString()).setValue(user);
                             Toast.makeText(SignUpActivity.this,"Амжилттай бүртгэгдлээ.", Toast.LENGTH_SHORT).show();
                             finish();

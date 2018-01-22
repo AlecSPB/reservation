@@ -63,7 +63,7 @@ public class CartAdapter extends RecyclerView.Adapter<CardViewHolder> {
     private Context context;
     
     public CartAdapter(List<Order> listData, Context context) {
-        listData = listData;
+        this.listData = listData;
         this.context = context;
     }
     
@@ -86,12 +86,15 @@ public class CartAdapter extends RecyclerView.Adapter<CardViewHolder> {
         holder.txt_price.setText(fmt.format(price));
         
         holder.txt_cart_name.setText(listData.get(position).getProductName());
+        
+        holder.txt_cart_name.setText(listData.get(position).getProductName());
     
         
     }
     
     @Override
     public int getItemCount() {
-        return 0;
+        
+        return listData.size();
     }
 }

@@ -1,10 +1,17 @@
 package cloud.techstar.reservation;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -14,8 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import cloud.techstar.reservation.Common.Common;
 import cloud.techstar.reservation.Database.Database;
 import cloud.techstar.reservation.Model.Order;
+import cloud.techstar.reservation.Model.Request;
 import cloud.techstar.reservation.ViewHolder.CartAdapter;
 import info.hoang8f.widget.FButton;
 
@@ -24,10 +33,10 @@ public class CartActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     
     FirebaseDatabase database;
-    DatabaseReference request;
+    DatabaseReference requests;
     
     TextView txtTotalPrice;
-    FButton btnPlace;
+    AppCompatButton btnPlace;
     
     List<Order> cart = new ArrayList<>();
     
@@ -41,19 +50,71 @@ public class CartActivity extends AppCompatActivity {
         
         
         database = FirebaseDatabase.getInstance();
-        request = database.getReference("Requests");
+        requests = database.getReference("Requests");
         
         recyclerView = (RecyclerView) findViewById(R.id.listCart);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
                 
                 txtTotalPrice = (TextView)findViewById(R.id.total);
-                btnPlace = (FButton) findViewById(R.id.btnPlaceOrder);
+                btnPlace = (AppCompatButton) findViewById(R.id.btnPlaceOrder);
+                
+                btnPlace.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                      showAlertDialog();
+                    }
+                });
                 
                 loadListFood();
                 
     }
     
+    private void showAlertDialog() {
+    
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(CartActivity.this);
+        alertDialog.setTitle("One more step!");
+        alertDialog.setMessage("Enter you Address!");
+        
+        final EditText edtAddress = new EditText(CartActivity.this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        );
+        
+        edtAddress.setLayoutParams(lp);
+        alertDialog.setView(edtAddress);
+        alertDialog.setIcon(R.drawable.ic_shopping_cart);
+        
+        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Request request = new Request(
+                        Common.currentUser.getPhone(),
+                        Common.currentUser.getName(),
+                        edtAddress.getText().toString(),
+                        txtTotalPrice.getText().toString(),
+                        cart
+                );
+                
+                requests.child( String.valueOf(System.currentTimeMillis()))
+                        .setValue(request);
+                
+                new Database(getBaseContext()).cleanCart();
+                Toast.makeText(CartActivity.this, "Thank you order!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+                alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                        alertDialog.show();
+                    
+        
+    }
     private void loadListFood() {
         
         cart = new Database(this).getCarts();

@@ -19,8 +19,8 @@ import cloud.techstar.reservation.Model.Order;
 
 public class Database extends SQLiteAssetHelper{
     
-    private static final String DB_NAME="food.db";
-    private static final int DB_VER=1;
+    private static final String DB_NAME="food1.db";
+    private static final int DB_VER=2;
     public Database(Context context) {
         super(context, DB_NAME, null, DB_VER);
     }
@@ -55,7 +55,7 @@ public class Database extends SQLiteAssetHelper{
     
     public void addToCard(Order order)
     {
-        SQLiteDatabase db = getReadableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
         String query = String.format("INSERT INTO OrderDetail(ProductId,ProductName,Quantity,Price,Discount)VALUES('%s','%s','%s','%s','%s');",
                 order.getProductId(),
                 order.getProductName(),
