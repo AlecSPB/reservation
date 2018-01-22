@@ -45,7 +45,7 @@ public class CartActivity extends AppCompatActivity {
         
         recyclerView = (RecyclerView) findViewById(R.id.listCart);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this)
+        layoutManager = new LinearLayoutManager(this);
                 
                 txtTotalPrice = (TextView)findViewById(R.id.total);
                 btnPlace = (FButton) findViewById(R.id.btnPlaceOrder);
@@ -57,7 +57,7 @@ public class CartActivity extends AppCompatActivity {
     private void loadListFood() {
         
         cart = new Database(this).getCarts();
-        adapter = new CartAdapter((cart,this));
+        adapter = new CartAdapter(cart,this);
         recyclerView.setAdapter(adapter);
         
         int total = 0;
